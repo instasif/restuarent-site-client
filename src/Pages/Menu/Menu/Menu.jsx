@@ -20,13 +20,16 @@ export default function Menu() {
   return (
     <section>
       <Helmet>
-        <title>Bistro Boss | Menu</title>
+        <title>Bistro Boss | Our Menu</title>
       </Helmet>
       {/* main cover  */}
       <HeroCover img={coverImg} title={"our menu"} />
       {/* offered menu items  */}
       <SectionTitle subHeading={"Don't Miss"} heading={"today's offer"}/>
       <MenuCategory items={todaysOffer} coverImg={coverImg}/>
+
+      {/* salad menu items */}
+      <MenuCategory items={saladMenu} coverImg={saladImg} title={"salad"}/>
 
       {/* dessert menu items */}
       <MenuCategory items={dessertMenu} coverImg={dessertImg} title={"dessert"}/>

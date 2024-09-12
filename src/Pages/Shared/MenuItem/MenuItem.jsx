@@ -1,8 +1,15 @@
+import { Link } from "react-router-dom";
+
 export default function MenuItem({ item }) {
   const { name, image, price, recipe } = item;
   return (
     <div className="flex space-x-4">
-      <img style={{borderRadius: "0px 200px 200px 200px"}} className="w-[100px]" src={image} alt="" />
+      <img
+        style={{ borderRadius: "0px 200px 200px 200px" }}
+        className="w-[100px]"
+        src={image}
+        alt=""
+      />
       <div>
         <h3 className="uppercase">{name}--------</h3>
         <p>{recipe}</p>
