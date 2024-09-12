@@ -1,13 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const navOptions = (
     <>
-      <li >
-        <a>Item 1</a>
+      <li>
+        <Link to={"/"}>Home</Link>
       </li>
       <li>
-        <a>Item 3</a>
+        <Link to={"/menu"}>Our Menu</Link>
       </li>
     </>
   );
@@ -39,7 +40,9 @@ export default function Navbar() {
               {navOptions}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl text-white">Bistro Boss Restaurant</a>
+          <a className="btn btn-ghost text-xl text-white">
+            Bistro Boss Restaurant
+          </a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 text-white">{navOptions}</ul>
