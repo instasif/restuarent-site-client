@@ -1,19 +1,23 @@
 import { useContext, useEffect, useState } from "react";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
   validateCaptcha,
 } from "react-simple-captcha";
 import { AuthContext } from "../../Provider/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 
 export default function Login() {
   const [disabled, setDisabled] = useState(true);
-
   const { logIn } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location?.state?.from?.pathname || "/";
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -44,17 +48,17 @@ export default function Login() {
         Swal.fire({
           title: "Good job!",
           text: "You clicked the button!",
-          icon: "success"
+          icon: "success",
         });
-        
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         Swal.fire({
-          title: 'Error!',
+          title: "Error!",
           text: error.message,
-          icon: 'error',
-          confirmButtonText: 'Cool'
-        })
+          icon: "error",
+          confirmButtonText: "Cool",
+        });
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log("code:", errorCode, "msg:", errorMessage);

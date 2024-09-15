@@ -18,17 +18,20 @@ export default function Navbar() {
         <Link to={"/menu"}>Our Menu</Link>
       </li>
       <li>
+        <Link to={"/secret"}>Our Secret</Link>
+      </li>
+      <li>
         <Link to={"/order/salad"}>Order Food</Link>
       </li>
       {user?.accessToken ? (
         <>
-          <li>
+          <li onClick={handleLogout}>
             <Link>logout</Link>
           </li>
         </>
       ) : (
         <>
-          <li onClick={handleLogout}>
+          <li>
             <Link to={"/login"}>Login</Link>
           </li>
         </>
