@@ -5,6 +5,8 @@ import "./index.css";
 import { router } from "./Routes/Routes.jsx";
 import { HelmetProvider } from "react-helmet-async";
 import AuthProvider from "./Provider/AuthProvider.jsx";
+// import 'sweetalert2/src/sweetalert2.scss'
+
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
