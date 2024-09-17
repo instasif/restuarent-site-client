@@ -14,11 +14,6 @@ export default function Login() {
   const [disabled, setDisabled] = useState(true);
   const { logIn } = useContext(AuthContext);
 
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const from = location?.state?.from?.pathname || "/";
-
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
@@ -39,11 +34,16 @@ export default function Login() {
     reset,
   } = useForm();
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location?.state?.from?.pathname || "/";
+  console.log(location?.state);
+
   const onSubmit = (data) => {
     const { email, password } = data;
     logIn(email, password)
       .then((result) => {
-        const user = result.user;
         Swal.fire({
           title: "Good job!",
           text: "You clicked the button!",
@@ -54,14 +54,11 @@ export default function Login() {
       })
       .catch((error) => {
         Swal.fire({
-          title: "Error!",
+          title: error.code,
           text: error.message,
           icon: "error",
           confirmButtonText: "Cool",
         });
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("code:", errorCode, "msg:", errorMessage);
         reset();
       });
   };
@@ -157,7 +154,7 @@ export default function Login() {
               </div>
               <div className="form-control mt-6">
                 <input
-                  disabled={disabled}
+                  // disabled={disabled}
                   className="btn btn-primary"
                   type="submit"
                   value="Login"

@@ -6,10 +6,10 @@ export default function PrivateRoute({ children }) {
   const { user, loading } = useContext(AuthContext);
   const location = useLocation();
   if (loading) {
-    return <span className="loading loading-ring loading-lg"></span>;
+    return <span className="loading loading-ring loading-lg mx-auto my-auto"></span>;
   }
   if (user?.accessToken) {
     return children;
   }
-  return <Navigate to={"/login"} state={{from: location}} replace></Navigate>;
+  return <Navigate to={"/login"} state={{ from: location }} replace></Navigate>;
 }
