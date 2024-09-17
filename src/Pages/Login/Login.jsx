@@ -44,13 +44,13 @@ export default function Login() {
     logIn(email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
         Swal.fire({
           title: "Good job!",
           text: "You clicked the button!",
           icon: "success",
         });
         navigate(from, { replace: true });
+        reset();
       })
       .catch((error) => {
         Swal.fire({
@@ -62,6 +62,7 @@ export default function Login() {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log("code:", errorCode, "msg:", errorMessage);
+        reset();
       });
   };
 

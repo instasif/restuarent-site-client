@@ -1,8 +1,11 @@
 import SectionTitle from "../../../Componants/SectionTitle/SectionTitle";
 import featuredImg from "../../../Assets/home/featured.jpg";
 import "./Featured.css";
+import { useContext } from "react";
+import { AuthContext } from "../../../Provider/AuthProvider";
 // bg-slate-500 bg-opacity-80
 export default function Featured() {
+  const {user} = useContext(AuthContext);
   return (
     <div className="featuredBgImg bg-fixed text-white pt-8 my-20">
       <SectionTitle subHeading={"Checkit out"} heading={"Featured item"} /> 

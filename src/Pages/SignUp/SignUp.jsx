@@ -1,14 +1,13 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 export default function SignUp() {
-  const [disabled, setDisabled] = useState(true);
-
-  const { createUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { createUser, updateUserProfile, logOut } = useContext(AuthContext);
 
   const {
     register,
@@ -19,16 +18,27 @@ export default function SignUp() {
   } = useForm();
 
   const onSubmit = (data) => {
-    const {name, email, password} = data;
-    console.log(data);
+    const { name, email, password, photoUrl } = data;
     createUser(email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        updateUserProfile(name, photoUrl)
+          .then(() => {
+            console.log("user name, photo updated");
+            reset();
+            logOut()
+              .then(() => {
+                navigate("/login");
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+          })
+          .catch((err) => console.error(err));
         Swal.fire({
           title: "Good job!",
           text: "You clicked the button!",
-          icon: "success"
+          icon: "success",
         });
       })
       .catch((error) => {
@@ -38,12 +48,11 @@ export default function SignUp() {
       });
   };
 
-
   return (
     <>
-    <Helmet>
-      <title>Bistro Boss | Signup</title>
-    </Helmet>
+      <Helmet>
+        <title>Bistro Boss | Signup</title>
+      </Helmet>
       <div className="hero bg-base-200 min-h-screen">
         <div className="hero-content flex-col md:flex-row-reverse">
           <div className="text-center md:w-1/2 md:text-left">
@@ -68,6 +77,23 @@ export default function SignUp() {
                 />
                 {errors.name && (
                   <span className="text-red-600 text-xs">Name is required</span>
+                )}
+              </div>
+
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Photo URL</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="photo url"
+                  {...register("photoUrl", { required: true })}
+                  className="input input-bordered"
+                />
+                {errors.photoUrl && (
+                  <span className="text-red-600 text-xs">
+                    Photo url is required
+                  </span>
                 )}
               </div>
 

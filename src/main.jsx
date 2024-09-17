@@ -5,14 +5,13 @@ import "./index.css";
 import { router } from "./Routes/Routes.jsx";
 import { HelmetProvider } from "react-helmet-async";
 import AuthProvider from "./Provider/AuthProvider.jsx";
-// import 'sweetalert2/src/sweetalert2.scss'
 
-
+//className="max-w-screen-xl mx-auto"
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
       <HelmetProvider>
-        <div className="max-w-screen-xl mx-auto">
+        <div className="w-[1280] mx-auto">
           <RouterProvider router={router} />
         </div>
       </HelmetProvider>
