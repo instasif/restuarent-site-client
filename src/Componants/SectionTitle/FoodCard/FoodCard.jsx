@@ -19,7 +19,7 @@ export default function FoodCard({ item }) {
         menuId: food._id,
         email: user?.email,
       };
-
+      // 67-4 Simple Overview of React Query and load data
       axiosSecure.post("/carts", cartItem).then((res) => {
         if (res.data._id) {
           Swal.fire({
