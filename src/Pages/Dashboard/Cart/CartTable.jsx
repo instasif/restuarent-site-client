@@ -16,7 +16,7 @@ export default function CartTable({ cart, refetch }) {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/carts/${id}`).then((res) => {
-          refetch();
+            refetch();
           if (res.deletedCount > 0) {
             Swal.fire({
               title: "Deleted!",

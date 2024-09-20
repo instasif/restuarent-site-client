@@ -4,10 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 export default function SignUp() {
   const navigate = useNavigate();
   const { createUser, updateUserProfile, logOut } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
 
   const {
     register,
@@ -19,22 +21,26 @@ export default function SignUp() {
 
   const onSubmit = (data) => {
     const { name, email, password, photoUrl } = data;
+
     createUser(email, password)
       .then((result) => {
-        const user = result.user;
-        updateUserProfile(name, photoUrl)
-          .then(() => {
-            console.log("user name, photo updated");
-            reset();
-            logOut()
-              .then(() => {
-                navigate("/login");
-              })
-              .catch((err) => {
-                console.error(err);
-              });
-          })
-          .catch((err) => console.error(err));
+        updateUserProfile(name, photoUrl).then((res) => {
+          const updateData = {
+            name,
+            photo: photoUrl,
+            email,
+          };
+          axiosPublic.post("/users", updateData).then((res) => {
+            if (res?.data?._id) {
+              reset();
+              logOut()
+                .then(() => {
+                  navigate("/login");
+                })
+                .catch((err) => {});
+            }
+          });
+        });
         Swal.fire({
           title: "Good job!",
           text: "You clicked the button!",
@@ -44,7 +50,6 @@ export default function SignUp() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
       });
   };
 

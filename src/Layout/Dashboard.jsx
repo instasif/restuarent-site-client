@@ -8,7 +8,6 @@ import {
 } from "react-icons/bs";
 import useCart from "../Hooks/useCart";
 
-
 export default function Dashboard() {
   const [cart] = useCart();
   return (
@@ -29,37 +28,37 @@ export default function Dashboard() {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu bg-orange-500 text-base-content min-h-full w-80 p-4">
+        <ul className="menu bg-orange-500 min-h-full w-80 p-4 text-white">
           {/* Sidebar content here */}
           <li className="mb-2">
-            <NavLink className={"/dashboard/cart"}>
+            <NavLink to={"/dashboard/cart"}>
               {" "}
               <IoCart /> My cart ({cart.length})
             </NavLink>
           </li>
           <li className="mb-2">
-            <NavLink className={"/dashboard/userHome"}>
+            <NavLink to={"/dashboard/userHome"}>
               {" "}
               <IoMdHome />
               User Home
             </NavLink>
           </li>
           <li className="mb-2">
-            <NavLink className={"/dashboard/reservation"}>
+            <NavLink to={"/dashboard/reservation"}>
               {" "}
               <BsCalendar2WeekFill />
               Reservation
             </NavLink>
           </li>
           <li className="mb-2">
-            <NavLink className={"/dashboard/review"}>
+            <NavLink to={"/dashboard/review"}>
               {" "}
               <BsStars />
               Add Review
             </NavLink>
           </li>
           <li className="mb-2">
-            <NavLink className={"/dashboard/bookings"}>
+            <NavLink to={"/dashboard/bookings"}>
               {" "}
               <BsFillCalendarCheckFill />
               My Bookings
@@ -67,14 +66,14 @@ export default function Dashboard() {
           </li>
           <div className="divider divider-neutral"></div>
           <li className="mb-2">
-            <NavLink className={"/"}>
+            <NavLink to={"/"}>
               {" "}
               <IoMdHome />
               Home
             </NavLink>
           </li>
           <li className="mb-2">
-            <NavLink className={"/order/salad"}>
+            <NavLink to={"/order/salad"}>
               {" "}
               <IoMdMenu />
               Menu

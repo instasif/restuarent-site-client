@@ -37,8 +37,7 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location?.state?.from?.pathname || "/";
-  console.log(location?.state);
+  const from = location?.state?.from?.pathname || "/order/salad";
 
   const onSubmit = (data) => {
     const { email, password } = data;
@@ -154,7 +153,7 @@ export default function Login() {
               </div>
               <div className="form-control mt-6">
                 <input
-                  // disabled={disabled}
+                  disabled={disabled}
                   className="btn btn-primary"
                   type="submit"
                   value="Login"

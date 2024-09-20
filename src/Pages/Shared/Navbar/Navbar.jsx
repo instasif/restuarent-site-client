@@ -11,7 +11,7 @@ export default function Navbar() {
   const handleLogout = () => {
     logOut()
       .then(() => {})
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   };
   const navOptions = (
     <>
