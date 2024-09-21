@@ -18,8 +18,11 @@ export default function FoodCard({ item }) {
       const cartItem = {
         menuId: food._id,
         email: user?.email,
+        name: food.name,
+        price: food.price,
+        image: food.image,
       };
-      
+
       axiosSecure.post("/carts", cartItem).then((res) => {
         if (res.data._id) {
           Swal.fire({

@@ -38,11 +38,16 @@ export const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <Dashboard></Dashboard>,
+    element: (
+      <PrivateRoute>
+        {" "}
+        <Dashboard />{" "}
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "cart",
-        element: <PrivateRoute><Cart /></PrivateRoute>,
+        element: <Cart />,
       },
     ],
   },

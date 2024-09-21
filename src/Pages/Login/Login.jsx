@@ -9,6 +9,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
+import SocialLogin from "../../Componants/SocialLogin/SocialLogin";
 
 export default function Login() {
   const [disabled, setDisabled] = useState(true);
@@ -160,11 +161,12 @@ export default function Login() {
                 />
               </div>
             </form>
-            <p>
+            <p className=" px-6">
               <small>
                 New here? <Link to={"/signup"}>Create an account</Link>
               </small>
             </p>
+            <SocialLogin />
           </div>
         </div>
       </div>

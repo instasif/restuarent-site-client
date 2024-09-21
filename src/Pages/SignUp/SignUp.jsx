@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import SocialLogin from "../../Componants/SocialLogin/SocialLogin";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -169,11 +170,12 @@ export default function SignUp() {
                 />
               </div>
             </form>
-            <p>
+            <p className="px-6">
               <small>
                 Already have an account? <Link to={"/login"}>Login</Link>
               </small>
             </p>
+            <SocialLogin />
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { IoCart } from "react-icons/io5";
+import { MdEmail } from "react-icons/md";
 import { IoMdHome, IoMdMenu } from "react-icons/io";
 import {
   BsStars,
@@ -10,6 +11,10 @@ import useCart from "../Hooks/useCart";
 
 export default function Dashboard() {
   const [cart] = useCart();
+
+  //todo: get isAdmin value from the database
+  const isAdmin = true;
+
   return (
     <div className="drawer lg:drawer-open ">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -77,6 +82,13 @@ export default function Dashboard() {
               {" "}
               <IoMdMenu />
               Menu
+            </NavLink>
+          </li>
+          <li className="mb-2">
+            <NavLink to={"/order/contact"}>
+              {" "}
+              <MdEmail />
+              Contact
             </NavLink>
           </li>
         </ul>
