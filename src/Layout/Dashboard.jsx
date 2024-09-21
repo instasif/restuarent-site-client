@@ -1,6 +1,8 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { IoCart } from "react-icons/io5";
 import { MdEmail } from "react-icons/md";
+import { FaBook, FaListUl, FaUtensils } from "react-icons/fa";
+import { FaUsersLine } from "react-icons/fa6";
 import { IoMdHome, IoMdMenu } from "react-icons/io";
 import {
   BsStars,
@@ -13,7 +15,8 @@ export default function Dashboard() {
   const [cart] = useCart();
 
   //todo: get isAdmin value from the database
-  const isAdmin = true;
+
+  const isAdmin = true  ;
 
   return (
     <div className="drawer lg:drawer-open ">
@@ -35,40 +38,81 @@ export default function Dashboard() {
         ></label>
         <ul className="menu bg-orange-500 min-h-full w-80 p-4 text-white">
           {/* Sidebar content here */}
-          <li className="mb-2">
-            <NavLink to={"/dashboard/cart"}>
-              {" "}
-              <IoCart /> My cart ({cart.length})
-            </NavLink>
-          </li>
-          <li className="mb-2">
-            <NavLink to={"/dashboard/userHome"}>
-              {" "}
-              <IoMdHome />
-              User Home
-            </NavLink>
-          </li>
-          <li className="mb-2">
-            <NavLink to={"/dashboard/reservation"}>
-              {" "}
-              <BsCalendar2WeekFill />
-              Reservation
-            </NavLink>
-          </li>
-          <li className="mb-2">
-            <NavLink to={"/dashboard/review"}>
-              {" "}
-              <BsStars />
-              Add Review
-            </NavLink>
-          </li>
-          <li className="mb-2">
-            <NavLink to={"/dashboard/bookings"}>
-              {" "}
-              <BsFillCalendarCheckFill />
-              My Bookings
-            </NavLink>
-          </li>
+          {isAdmin ? (
+            <>
+              <li className="mb-2">
+                <NavLink to={"/dashboard/adminHome"}>
+                  {" "}
+                  <IoMdHome /> Admin Home
+                </NavLink>
+              </li>
+              <li className="mb-2">
+                <NavLink to={"/dashboard/addItems"}>
+                  {" "}
+                  <FaUtensils />
+                  Add Items
+                </NavLink>
+              </li>
+              <li className="mb-2">
+                <NavLink to={"/dashboard/manageItems"}>
+                  {" "}
+                  <FaListUl />
+                  Manage Items
+                </NavLink>
+              </li>
+              <li className="mb-2">
+                <NavLink to={"/dashboard/manegeBookings"}>
+                  {" "}
+                  <FaBook />
+                  Manage Bookings
+                </NavLink>
+              </li>
+              <li className="mb-2">
+                <NavLink to={"/dashboard/allUsers"}>
+                  {" "}
+                  <FaUsersLine />
+                  All Users
+                </NavLink>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className="mb-2">
+                <NavLink to={"/dashboard/cart"}>
+                  {" "}
+                  <IoCart /> My cart ({cart.length})
+                </NavLink>
+              </li>
+              <li className="mb-2">
+                <NavLink to={"/dashboard/userHome"}>
+                  {" "}
+                  <IoMdHome />
+                  User Home
+                </NavLink>
+              </li>
+              <li className="mb-2">
+                <NavLink to={"/dashboard/reservation"}>
+                  {" "}
+                  <BsCalendar2WeekFill />
+                  Reservation
+                </NavLink>
+              </li>
+              <li className="mb-2">
+                <NavLink to={"/dashboard/review"}>
+                  {" "}
+                  <BsStars />
+                  Add Review
+                </NavLink>
+              </li>
+              <li className="mb-2">
+                <NavLink to={"/dashboard/bookings"}>
+                  {" "}
+                  <BsFillCalendarCheckFill />
+                  My Bookings
+                </NavLink>
+              </li>
+            </>
+          )}
           <div className="divider divider-neutral"></div>
           <li className="mb-2">
             <NavLink to={"/"}>
