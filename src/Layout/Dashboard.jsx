@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { IoCart } from "react-icons/io5";
 import { MdEmail } from "react-icons/md";
 import { FaBook, FaListUl, FaUtensils } from "react-icons/fa";
@@ -10,13 +10,14 @@ import {
   BsCalendar2WeekFill,
 } from "react-icons/bs";
 import useCart from "../Hooks/useCart";
+import useAdmin from "../Hooks/useAdmin";
 
 export default function Dashboard() {
   const [cart] = useCart();
 
   //todo: get isAdmin value from the database
 
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
 
   return (
     <div className="drawer lg:drawer-open ">

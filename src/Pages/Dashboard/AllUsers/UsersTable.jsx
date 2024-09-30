@@ -19,7 +19,6 @@ export default function UsersTable({ users, refetch }) {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
-          console.log(res.data.modifiedCount);
           if (res.data.modifiedCount > 0) {
             Swal.fire({
               title: "Deleted!",
