@@ -16,7 +16,7 @@ export default function Dashboard() {
 
   //todo: get isAdmin value from the database
 
-  const isAdmin = true  ;
+  const isAdmin = true;
 
   return (
     <div className="drawer lg:drawer-open ">

@@ -12,14 +12,13 @@ export default function AllUsers() {
       return res.data;
     },
   });
-  console.log(users);
   return (
     <>
       <div className="flex justify-evenly my-4">
         <h2 className="text-3xl">All Users</h2>
         <h2 className="text-3xl">Total Users: {users.length}</h2>
       </div>
-      <UsersTable users={users}/>
+      <UsersTable users={users} refetch={refetch} />
     </>
   );
 }

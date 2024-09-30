@@ -1,6 +1,62 @@
 import { IoTrash } from "react-icons/io5";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import { RiAdminFill } from "react-icons/ri";
+import { FaUser } from "react-icons/fa";
 
-export default function UsersTable({users}) {
+export default function UsersTable({ users, refetch }) {
+  const axiosSecure = useAxiosSecure();
+
+  const handleMakeAdmin = (user) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, make admin",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
+          console.log(res.data.modifiedCount);
+          if (res.data.modifiedCount > 0) {
+            Swal.fire({
+              title: "Deleted!",
+              text: `${user.name} is admin now!`,
+              icon: "success",
+            });
+          }
+          refetch();
+        });
+      }
+    });
+  };
+
+  const handleDelete = (user) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/users/${user._id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            Swal.fire({
+              title: "Deleted!",
+              text: `${user.name} has been deleted`,
+              icon: "success",
+            });
+          }
+          refetch();
+        });
+      }
+    });
+  };
   return (
     <div className="overflow-x-auto mt-4">
       <table className="table w-full">
@@ -35,13 +91,32 @@ export default function UsersTable({users}) {
               </td>
               <td>{user.name || "loading..."}</td>
               <td>{user.email || "loading..."}</td>
-              <td>{user.role || "loading..."}</td>
+              <td>
+                {user.role === "admin" ? (
+                  <>
+                    <RiAdminFill className="text-red-600 text-xl font-bold cursor-pointer hover:text-red-400 ml-4" />
+                    <small className="font-semibold ml-2">Admin</small>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => handleMakeAdmin(user)}
+                      className="btn btn-ghost btn-md "
+                    >
+                      <div className="">
+                        <FaUser className="text-red-600 text-xl mr-2 font-bold cursor-pointer hover:text-red-400" />
+                        <small className=" -ml-3">Customer</small>
+                      </div>
+                    </button>
+                  </>
+                )}
+              </td>
               <td>
                 <button
-                  onClick={() => handleDelete(item._id)}
+                  onClick={() => handleDelete(user)}
                   className="btn btn-ghost btn-md"
                 >
-                  <IoTrash className="text-red-600 text-md cursor-pointer hover:text-red-400" />
+                  <IoTrash className="text-red-600 text-md font-bold cursor-pointer hover:text-red-400" />
                 </button>
               </td>
             </tr>
@@ -49,5 +124,5 @@ export default function UsersTable({users}) {
         </tbody>
       </table>
     </div>
-  )
+  );
 }
