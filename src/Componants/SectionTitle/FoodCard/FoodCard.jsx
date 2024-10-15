@@ -53,7 +53,7 @@ export default function FoodCard({ item }) {
   return (
     <div className="card bg-base-100 w-96 shadow-xl">
       <figure>
-        <img src={image} alt="Shoes" />
+        <img src={image} className="max-w-full h-[247px]" alt="Shoes" />
       </figure>
       <p className=" absolute right-0 mr-4 mt-4 px-4 bg-slate-900 text-white">
         ${price}

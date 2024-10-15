@@ -16,7 +16,7 @@ export default function Menu() {
   const soupMenu = menu.filter((item) => item.category === "soup");
   const pizzaMenu = menu.filter((item) => item.category === "pizza");
   const todaysOffer = menu.filter((item) => item.category === "offered");
-  const drinksMenu = menu.filter((item) => item.category === "drinks");
+  const drinksMenu = menu.filter((item) => item.category === "offered");
   return (
     <section>
       <Helmet>

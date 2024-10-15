@@ -20,7 +20,7 @@ export default function SocialLogin() {
         photo: res.user?.photoURL,
       };
       axiosPublic.post("/users", userInfo).then((res) => {
-        if (res?.data?._id) {
+        if (res.data?._id) {
           navigate(from, { replace: true });
         }
       });
