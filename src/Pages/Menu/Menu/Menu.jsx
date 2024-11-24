@@ -10,7 +10,7 @@ import { useMenu } from "../../../Hooks/useMenu";
 import SectionTitle from "../../../Componants/SectionTitle/SectionTitle";
 import MenuCategory from "../MenuCategory/MenuCategory";
 export default function Menu() {
-  const [menu, loading] = useMenu();
+  const [menu] = useMenu();
   const dessertMenu = menu.filter((item) => item.category === "dessert");
   const saladMenu = menu.filter((item) => item.category === "salad");
   const soupMenu = menu.filter((item) => item.category === "soup");

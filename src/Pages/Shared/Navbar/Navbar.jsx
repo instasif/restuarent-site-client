@@ -6,7 +6,11 @@ import useCart from "../../../Hooks/useCart";
 
 export default function Navbar() {
   const { user, logOut } = useContext(AuthContext);
-  const [cart] = useCart();
+  let cartItems = [];
+  if (user?.email) {
+    const [cart] = useCart();
+    cartItems = cart;
+  }
 
   const handleLogout = () => {
     logOut()
@@ -39,10 +43,14 @@ export default function Navbar() {
       )}
       <li>
         <Link to={"/dashboard/cart"}>
-          <>
-            <FaCartShopping></FaCartShopping>
-            <div className="badge badge-secondary left-3">+{cart?.length}</div>
-          </>
+          <button>
+            <div className="flex relative">
+              <FaCartShopping></FaCartShopping>
+              <div className="badge badge-secondary absolute bottom-1 left-4">
+                +{cartItems?.length}
+              </div>
+            </div>
+          </button>
         </Link>
       </li>
     </>
@@ -83,7 +91,7 @@ export default function Navbar() {
           <ul className="menu menu-horizontal px-1 text-white">{navOptions}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          {/* <a className="btn">Button</a> */}
         </div>
       </div>
     </>

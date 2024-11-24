@@ -5,7 +5,7 @@ export default function HeroCover({ img, title }) {
     <Parallax
       blur={{ min: -50, max: 50 }}
       bgImage={img}
-      bgImageAlt="the menu"
+      bgImageAlt=""
       strength={-200}
     >
       <div

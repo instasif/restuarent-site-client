@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import { AuthContext } from "../../../Provider/AuthProvider";
+import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useCart from "../../Hooks/useCart";
 
 export default function FoodCard({ item }) {
   const { name, image, price, recipe } = item;
@@ -53,8 +54,8 @@ export default function FoodCard({ item }) {
   return (
     <div className="card bg-base-100 w-96 shadow-xl">
       <figure>
-        <img src={image} className="max-w-full h-[247px]" alt="Shoes" />
-      </figure>
+        <img src={image} className="max-w-full h-[247px]" alt="" />
+       </figure>
       <p className=" absolute right-0 mr-4 mt-4 px-4 bg-slate-900 text-white">
         ${price}
       </p>

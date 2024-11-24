@@ -30,7 +30,7 @@ export default function Order() {
       <HeroCover img={orderCover} title={"Oder Food"} />
 
       <Tabs defaultIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
-        <TabList>
+        <TabList className={"flex justify-center my-3 gap-3"}>
           <Tab>Salad</Tab>
           <Tab>Pizza</Tab>
           <Tab>Soup</Tab>

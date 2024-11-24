@@ -11,6 +11,10 @@ import PrivateRoute from "./PrivateRoute";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import AdminRoutes from "./AdminRoutes";
 import AddItems from "../Pages/Dashboard/AddItems/AddItems";
+import ManageItems from "../Pages/Dashboard/ManageItems/ManageItems";
+import UpdateItem from "../Pages/Dashboard/UpdateItem/UpdateItem";
+import Payment from "../Pages/Dashboard/Payment/Payment";
+import PaymentHistory from "../Pages/Dashboard/Payment/PaymentHistory";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +41,7 @@ export const router = createBrowserRouter([
         path: "/signup",
         element: <SignUp />,
       },
+      
     ],
   },
   {
@@ -52,6 +57,14 @@ export const router = createBrowserRouter([
       {
         path: "cart",
         element: <Cart />,
+      },
+      {
+        path: "payment",
+        element: <Payment />,
+      },
+      {
+        path: "paymentHistory",
+        element: <PaymentHistory />,
       },
 
       //? Admin only routes
@@ -70,6 +83,24 @@ export const router = createBrowserRouter([
             <AddItems />
           </AdminRoutes>
         ),
+      },
+      {
+        path: "manageItems",
+        element: (
+          <AdminRoutes>
+            <ManageItems />
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "updateItem/:id",
+        element: (
+          <AdminRoutes>
+            <UpdateItem />
+          </AdminRoutes>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/menu/${params.id}`),
       },
     ],
   },

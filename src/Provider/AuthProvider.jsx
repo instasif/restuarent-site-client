@@ -64,7 +64,7 @@ export default function AuthProvider({ children }) {
         });
       } else {
         //todo: remove token (if token stored in the client side, local storage, caching, in memory)
-        localStorage.removeItem("access-token")
+        localStorage.removeItem("access-token");
       }
       setLoading(false);
     });

@@ -2,30 +2,51 @@ import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function SocialLogin() {
   const { googleLogin } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
-
   const navigate = useNavigate();
   const location = useLocation();
 
   const from = location?.state?.from?.pathname || "/order/salad";
 
-  const handleGoogleLogin = () => {
-    googleLogin().then((res) => {
+  const handleGoogleLogin = async () => {
+    try {
+      const res = await googleLogin();
+      navigate(from, { replace: true });
       const userInfo = {
         email: res.user?.email,
         name: res.user?.displayName,
         photo: res.user?.photoURL,
       };
-      axiosPublic.post("/users", userInfo).then((res) => {
-        if (res.data?._id) {
-          navigate(from, { replace: true });
-        }
-      });
-    });
+
+      const response = await axiosPublic.post("/users", userInfo);
+      console.log("API response:", response.data);
+
+      if (response.data?._id) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `${userInfo.email} is is saved`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "This user is already saved",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      console.error("Google login error:", error);
+    }
   };
+
   return (
     <div className="px-16 py-6">
       <div className=" divider"></div>

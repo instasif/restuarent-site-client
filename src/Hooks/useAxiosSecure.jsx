@@ -1,43 +1,55 @@
 import axios from "axios";
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const axiosSecure = axios.create({
-  baseURL: "https://mock-restaurant-nu.vercel.app",
-});
+    baseURL: 'http://localhost:5000'
+})
+const useAxiosSecure = () => {
+    const navigate = useNavigate();
+    const { logOut } = useContext(AuthContext);
 
-export default function useAxiosSecure() {
-  const navigate = useNavigate();
-  const { logOut } = useContext(AuthContext);
-  //? request interceptor to add authorization header for every secure cal to the api
-  axiosSecure.interceptors.request.use(
-    function (config) {
-      const token = localStorage.getItem("access-token");
-      config.headers.authorization = `Bearer ${token}`;
-      return config;
-    },
-    function (err) {
-      return Promise.reject(err);
-    }
-  );
+    // request interceptor to add authorization header for every secure call to teh api
+    axiosSecure.interceptors.request.use(function (config) {
+        const token = localStorage.getItem('access-token')
+        // console.log('request stopped by interceptors', token)
+        config.headers.authorization = `Bearer ${token}`;
+        return config;
+    }, function (error) {
+        // Do something with request error
+        return Promise.reject(error);
+    });
 
-  //? intercets 401 and 403 status
-  axiosSecure.interceptors.response.use(
-    function (response) {
-      return response;
-    },
-    async (error) => {
-      console.log(error);
-      const statusCode = error.response.status;
-      if (statusCode === 401 || statusCode === 403) {
-        await logOut()
-          .then(() => {})
-          .catch((err) => {});
-        navigate("/login");
+
+    
+
+    axiosSecure.interceptors.response.use(
+      function (response) {
+        return response;
+      },
+      async (error) => {
+        if (!error.response) {
+          console.error("Network or unexpected error:", error);
+          return Promise.reject(error);
+        }
+    
+        const statusCode = error.response.status;
+        if (statusCode === 401 || statusCode === 403) {
+          await logOut()
+            .then(() => {
+              navigate("/login");
+            })
+            .catch((err) => {
+              console.error("Logout error:", err);
+            });
+        }
+        return Promise.reject(error);
       }
-      return Promise.reject(error);
-    }
-  );
-  return axiosSecure;
-}
+    );
+
+
+    return axiosSecure;
+};
+
+export default useAxiosSecure;

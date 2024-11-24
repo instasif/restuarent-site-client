@@ -15,8 +15,6 @@ import useAdmin from "../Hooks/useAdmin";
 export default function Dashboard() {
   const [cart] = useCart();
 
-  //todo: get isAdmin value from the database
-
   const [isAdmin] = useAdmin();
 
   return (
@@ -92,10 +90,10 @@ export default function Dashboard() {
                 </NavLink>
               </li>
               <li className="mb-2">
-                <NavLink to={"/dashboard/reservation"}>
+                <NavLink to={"/dashboard/paymentHistory"}>
                   {" "}
-                  <BsCalendar2WeekFill />
-                  Reservation
+                  <BsFillCalendarCheckFill />
+                  Payment History
                 </NavLink>
               </li>
               <li className="mb-2">
@@ -108,7 +106,7 @@ export default function Dashboard() {
               <li className="mb-2">
                 <NavLink to={"/dashboard/bookings"}>
                   {" "}
-                  <BsFillCalendarCheckFill />
+                  <BsCalendar2WeekFill />
                   My Bookings
                 </NavLink>
               </li>

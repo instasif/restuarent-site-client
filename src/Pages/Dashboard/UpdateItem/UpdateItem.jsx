@@ -1,19 +1,15 @@
-import { useForm } from "react-hook-form";
+import { FaUtensils } from "react-icons/fa";
 import SectionTitle from "../../../Componants/SectionTitle/SectionTitle";
-import { FaUtensils } from "react-icons/fa6";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { useLoaderData } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
-const image_hoasing_api = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_imgbb}`;
-
-export default function AddItems() {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-    reset,
-  } = useForm();
+export default function UpdateItem() {
+  const { handleSubmit, register, reset } = useForm();
+  const { name, recipe, price, category, image, _id } = useLoaderData();
+  const image_hoasing_api = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_imgbb}`;
 
   const axiosPurbic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
@@ -35,23 +31,24 @@ export default function AddItems() {
         image: res.data.data.display_url,
       };
 
-      const menuRes = await axiosSecure.post("/menu", menuItem);
-      if (menuRes.data._id) {
+      const menuRes = await axiosSecure.patch(`/menu/${_id}`, menuItem);
+      if (menuRes.data.modifiedCount > 0) {
         reset();
         Swal.fire({
           title: "Good job!",
-          text: `${menuRes.data.name} has posted`,
-          icon: "success"
+          text: `${menuRes.data.name} has updated`,
+          icon: "success",
         });
       }
     }
   };
+
   return (
     <>
-      <SectionTitle subHeading={"What's new?"} heading={"Add an Item"} />
+      <SectionTitle subHeading={"Refresh Info"} heading={"Update an Info"} />
       <>
         <div className="rounded-lg p-8 shadow-lg lg:col-span-3 lg:p-12 border-2">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <div className="label">
                 <span className="label-text">Recipe Name</span>
@@ -59,7 +56,8 @@ export default function AddItems() {
               <input
                 className="w-full rounded-lg border-gray-200 p-3 text-sm"
                 placeholder="Recipe Name"
-                {...register("name", { required: true })}
+                defaultValue={name}
+                {...register("name")}
                 type="text"
                 id="name"
               />
@@ -71,7 +69,8 @@ export default function AddItems() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <select
                 className="select w-full max-w-xs"
-                {...register("category", { required: true })}
+                defaultValue={category}
+                {...register("category")}
               >
                 <option disabled defaultValue>
                   Category
@@ -92,7 +91,8 @@ export default function AddItems() {
                   className="w-full rounded-lg border-gray-200 p-3 text-sm"
                   placeholder="Price"
                   type="text"
-                  {...register("price", { required: true })}
+                  defaultValue={price}
+                  {...register("price")}
                   id="phone"
                 />
               </div>
@@ -104,14 +104,15 @@ export default function AddItems() {
               </div>
 
               <textarea
+              defaultValue={recipe}
                 className="w-full rounded-lg border-gray-200 p-3 text-sm"
                 placeholder="Recipe Details"
-                {...register("details", { required: true })}
+                {...register("details")}
                 rows="8"
                 id="message"
               ></textarea>
               <input
-                {...register("image", { required: true })}
+                {...register("image")}
                 type="file"
                 className="file-input w-full max-w-xs mt-4"
               />
@@ -124,7 +125,7 @@ export default function AddItems() {
               >
                 <div className="flex gap-2">
                   <FaUtensils />
-                  <span>Add Item</span>
+                  <span>Update Item</span>
                 </div>
               </button>
             </div>

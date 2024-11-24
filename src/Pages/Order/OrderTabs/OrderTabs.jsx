@@ -1,5 +1,5 @@
 import React from "react";
-import FoodCard from "../../../Componants/SectionTitle/FoodCard/FoodCard";
+import FoodCard from "../../../Componants/FoodCard/FoodCard";
 
 export default function OrderTabs({items}) {
   return (
