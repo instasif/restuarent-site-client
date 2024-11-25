@@ -4,7 +4,6 @@ import SectionTitle from "../../../Componants/SectionTitle/SectionTitle";
 
 export default function PaymentHistory() {
   const [paymentHistory] = usePaymentHistory();
-  console.log(paymentHistory);
   return (
     <>
       <SectionTitle heading={"Payment History"} subHeading={"At a glance!"} />

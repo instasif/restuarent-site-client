@@ -75,7 +75,7 @@ export default function ChackoutForm() {
     // now save the payment in Db
     const payment = {
       email: user?.email,
-      price: totalPrice,
+      price: +totalPrice,
       transactionId: paymentIntent.id,
       date: new Date(), // utc date convert, use moment js
       cartIds: cart.map((item) => item._id),

@@ -3,14 +3,16 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import { FaCartShopping } from "react-icons/fa6";
 import useCart from "../../../Hooks/useCart";
+import useAdmin from "../../../Hooks/useAdmin";
 
 export default function Navbar() {
   const { user, logOut } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
   let cartItems = [];
-  if (user?.email) {
-    const [cart] = useCart();
-    cartItems = cart;
-  }
+  // if (user?.email) {
+  //   const [cart] = useCart();
+  //   cartItems = cart;
+  // }
 
   const handleLogout = () => {
     logOut()
@@ -28,6 +30,17 @@ export default function Navbar() {
       <li>
         <Link to={"/order/salad"}>Order Food</Link>
       </li>
+
+      {user && isAdmin ? (
+        <li>
+          <Link to={"/dashboard/adminHome"}>Admin Home</Link>
+        </li>
+      ) : (
+        <li>
+          <Link to={"/dashboard/userHome"}>Guest Home</Link>
+        </li>
+      )}
+
       {user?.accessToken ? (
         <>
           <li onClick={handleLogout}>
@@ -41,6 +54,7 @@ export default function Navbar() {
           </li>
         </>
       )}
+
       <li>
         <Link to={"/dashboard/cart"}>
           <button>
@@ -90,9 +104,7 @@ export default function Navbar() {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 text-white">{navOptions}</ul>
         </div>
-        <div className="navbar-end">
-          {/* <a className="btn">Button</a> */}
-        </div>
+        <div className="navbar-end">{/* <a className="btn">Button</a> */}</div>
       </div>
     </>
   );
