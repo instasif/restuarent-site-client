@@ -14,6 +14,7 @@ export default function FoodCard({ item }) {
   const axiosSecure = useAxiosSecure();
 
   const handleAddToCart = (food) => {
+    
     if (user?.email) {
       //todo: send cart item to the database
       const cartItem = {
@@ -22,7 +23,9 @@ export default function FoodCard({ item }) {
         name: food.name,
         price: food.price,
         image: food.image,
+        category: food.category,
       };
+      console.log("category from food order", cartItem);
 
       axiosSecure.post("/carts", cartItem).then((res) => {
         if (res.data._id) {
@@ -55,7 +58,7 @@ export default function FoodCard({ item }) {
     <div className="card bg-base-100 w-96 shadow-xl">
       <figure>
         <img src={image} className="max-w-full h-[247px]" alt="" />
-       </figure>
+      </figure>
       <p className=" absolute right-0 mr-4 mt-4 px-4 bg-slate-900 text-white">
         ${price}
       </p>

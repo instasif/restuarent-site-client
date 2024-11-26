@@ -8,9 +8,10 @@ import useAdmin from "../../../Hooks/useAdmin";
 export default function Navbar() {
   const { user, logOut } = useContext(AuthContext);
   const [isAdmin] = useAdmin();
-  let cartItems = [];
+  const cart = [];
+  // const [cart] = useCart();
+  // let cartItems = [];
   // if (user?.email) {
-  //   const [cart] = useCart();
   //   cartItems = cart;
   // }
 
@@ -61,7 +62,7 @@ export default function Navbar() {
             <div className="flex relative">
               <FaCartShopping></FaCartShopping>
               <div className="badge badge-secondary absolute bottom-1 left-4">
-                +{cartItems?.length}
+                +{cart?.length}
               </div>
             </div>
           </button>
