@@ -43,7 +43,6 @@ export const router = createBrowserRouter([
         path: "/signup",
         element: <SignUp />,
       },
-      
     ],
   },
   {
@@ -114,7 +113,7 @@ export const router = createBrowserRouter([
           </AdminRoutes>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/menu/${params.id}`),
+          fetch(`https://mock-restaurant-nu.vercel.app/menu/${params.id}`),
       },
     ],
   },

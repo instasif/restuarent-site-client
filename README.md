@@ -1,4 +1,4 @@
-Domain: https://bistro-boss-694b9.web.app/
+Domain: https://bistro-boss-0f21d5.netlify.app/
 
 (admin user) 
 email: asif@gmail.com

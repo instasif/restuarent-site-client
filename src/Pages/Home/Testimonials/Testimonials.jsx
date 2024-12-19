@@ -12,7 +12,7 @@ export default function Testimonials() {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/review")
+    fetch("https://mock-restaurant-nu.vercel.app/review")
       .then((res) => res.json())
       .then((data) => setReviews(data));
   }, []);
@@ -31,7 +31,7 @@ export default function Testimonials() {
             delay: 3000,
             disableOnInteraction: false,
           }}
-          loop={reviews.length > 2} 
+          loop={reviews.length > 2}
           className="mySwiper"
         >
           {reviews.map((review) => (
